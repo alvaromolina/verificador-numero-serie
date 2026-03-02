@@ -1,16 +1,24 @@
 :root {
-  --bg: #ffffff;
-  --text: #111111;
-  --muted: #6b6b6b;
-  --border: rgba(0,0,0,0.08);
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: rgba(15, 23, 42, 0.12);
+  --accent: #0ea5e9;
+  --accent-strong: #0369a1;
+  --shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0e0e0e;
-    --text: #f2f2f2;
-    --muted: #9a9a9a;
-    --border: rgba(255,255,255,0.08);
+    --bg: #020617;
+    --surface: #0f172a;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: rgba(148, 163, 184, 0.25);
+    --accent: #38bdf8;
+    --accent-strong: #7dd3fc;
+    --shadow: 0 20px 40px rgba(2, 6, 23, 0.45);
   }
 }
 
@@ -20,10 +28,23 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(600px 300px at 10% -5%, rgba(14, 165, 233, 0.15), transparent 70%),
+    radial-gradient(500px 260px at 90% 0%, rgba(56, 189, 248, 0.14), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .nav {
@@ -37,7 +58,7 @@ body {
 
 .brand {
   font-weight: 700;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.4px;
 }
 
 .links a {
@@ -45,6 +66,7 @@ body {
   text-decoration: none;
   color: var(--muted);
   font-size: 14px;
+  transition: color 0.2s ease;
 }
 
 .links a:hover {
@@ -60,23 +82,36 @@ main {
 .hero h1 {
   font-size: 48px;
   line-height: 1.1;
-  letter-spacing: -1px;
+  letter-spacing: -1.1px;
   margin-bottom: 20px;
+  animation: rise 0.55s ease both;
 }
 
 .lead {
   font-size: 18px;
   color: var(--muted);
   margin-bottom: 20px;
+  animation: rise 0.7s ease both;
 }
 
 .disclaimer {
   font-size: 14px;
   color: var(--muted);
+  animation: rise 0.85s ease both;
+}
+
+.hero-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  animation: rise 1s ease both;
 }
 
 .section {
   margin-top: 80px;
+  animation: rise 0.6s ease both;
 }
 
 h2 {
@@ -88,6 +123,43 @@ h2 {
 h3 {
   margin-top: 30px;
   font-size: 16px;
+}
+
+.download-card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 11px 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  border: none;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--accent-strong);
+  background: rgba(14, 165, 233, 0.12);
+  border: 1px solid rgba(14, 165, 233, 0.25);
 }
 
 .minimal-list {
@@ -107,6 +179,17 @@ h3 {
   margin: 10px 0;
 }
 
+.install-steps {
+  margin-top: 14px;
+  margin-bottom: 0;
+  padding-left: 20px;
+}
+
+.install-steps li {
+  margin-bottom: 8px;
+  color: var(--muted);
+}
+
 .small {
   font-size: 13px;
   color: var(--muted);
@@ -122,4 +205,42 @@ footer {
 
 a {
   color: var(--text);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 760px) {
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .links a {
+    margin-left: 0;
+    margin-right: 16px;
+    display: inline-block;
+  }
+
+  main {
+    padding-top: 20px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .lead {
+    font-size: 17px;
+  }
 }
